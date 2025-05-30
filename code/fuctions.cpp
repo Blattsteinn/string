@@ -61,26 +61,59 @@ vector<string> splitIntoWords(const string &text) {
 }
 
 
-void print(const unordered_map<string, wordDetails>& word_information){
-    std::cout << std::left
+void print(const unordered_map<string, wordDetails>& word_information, string file_name){
+    std::ofstream file_out("list_of_words.txt");
+    if (!file_out) std::cerr << "[Error] Cannot open list_of_words.txt for writing\n";
+
+
+    else {
+        file_out << std::left
         << std::setw(20) << "Word"
         << std::setw(8)  << "Count"
         << "Lines\n";
+        file_out << string(20 + 8 + 6, '-') << "\n";
 
-    cout << string(20 + 8 + 6, '-') << "\n";
+        for (auto const& p : word_information) {
+            if( p.second.count > 1){
+                file_out << std::left
+                        << std::setw(20) << p.first
+                        << std::setw(8)  << p.second.count;
 
-
-    for (auto const& p : word_information) {
-        if( p.second.count > 1){
-            cout << std::left
-                    << std::setw(20) << p.first
-                    << std::setw(8)  << p.second.count;
-
-            for (int i = 0; i < p.second.lines.size(); ++i) {
-                if (i) cout << ", ";
-                cout << p.second.lines[i];
+                for (int i = 0; i < p.second.lines.size(); ++i) {
+                    if (i) file_out << ", ";
+                    file_out << p.second.lines[i];
+                }
+                file_out << endl;
             }
-            cout << endl;
+        }
+    }
+    cout << "Word count saved to " << file_name << endl;
+}
+
+void extractUrls(const std::string &text, string file_name) {
+    // A basic HTTP(S) URL regex
+    static const std::regex url_regex(
+        R"(\b(https?://)?(www\.)?[A-Za-z0-9-]+\.[A-Za-z]{2,}(/[^\s]*)?\b)",
+        std::regex::icase
+    );
+
+    vector<string> urls;
+    auto begin = std::sregex_iterator(text.begin(), text.end(), url_regex);
+    auto end   = std::sregex_iterator();
+    for (auto it = begin; it != end; ++it) {
+        urls.push_back(it->str());
+    }
+
+    if (!urls.empty()) {
+        std::ofstream url_out(file_name);
+        if (!url_out) {
+            std::cerr << "[Error] Cannot open urls.txt for writing\n";
+        } else {
+            for (auto &u : urls) {
+                url_out << u << "\n";
+            }
+            std::cout << "Found " << urls.size()
+                      << " URL(s) and saved to " << file_name << endl;
         }
     }
 }

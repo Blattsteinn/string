@@ -27,7 +27,8 @@ int main(){
         }
     }
 
-    print(word_information);
+    print(word_information, "words_out.txt");
+    extractUrls(file_content, "urls_out.txt");
 
     return 0;
 }
