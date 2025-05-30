@@ -1,8 +1,18 @@
+#pragma once
+
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <sstream>
 #include <vector>
+
+#include <unordered_map>
+using std::unordered_map;
+
+#include <iomanip>
+
+// -- <vector
+using std::vector;
 
 struct wordDetails {
     int count = 0;
@@ -25,11 +35,5 @@ using std::istringstream;
 using std::string;
 using std::ios;
 
-// -- <vector
-using std::vector;
-
-#include <unordered_map>
-using std::unordered_map;
 
 
-#include <iomanip>
