@@ -27,10 +27,10 @@ string readFileToString(const string &file_name) {
 vector<string> splitIntoWords(const string &text) {
     string cleaned = text;
 
-    // 2) Strip out “X.” tokens, where X is an ASCII letter
+    // Remove  one_letter + dot
     for (size_t i = 0; i + 1 < cleaned.size(); ++i) {
         char a = cleaned[i], b = cleaned[i+1];
-        // isEnglishLetter(a) && b == '.'
+        // if is english letter(a) && b == '.'
         if (((a >= 'A' && a <= 'Z') || (a >= 'a' && a <= 'z'))
             && b == '.') {
             bool start_ok = (i == 0) || std::isspace(static_cast<unsigned char>(cleaned[i-1]));
@@ -42,7 +42,7 @@ vector<string> splitIntoWords(const string &text) {
         }
     }
     
-    // 3) Clean out all non-letters → space; letters → lowercase
+    // Clean out all non-letters
     for (char &c : cleaned) {
         if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')) {
             c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
@@ -60,21 +60,6 @@ vector<string> splitIntoWords(const string &text) {
     return words;
 }
 
-bool getLine(const std::string& filename, int targetLine, string& out) {
-    ifstream file(filename);
-    if (!file.is_open()) return false;
-
-    string line;
-    for (int current = 1; current <= targetLine; ++current) {
-        if (!std::getline(file, line)) 
-            return false;   // file ended before target
-        if (current == targetLine) {
-            out = line;
-            return true;
-        }
-    }
-    return false;  // should not reach here
-}
 
 void print(const unordered_map<string, wordDetails>& word_information){
     std::cout << std::left
