@@ -1,33 +1,37 @@
 
 
-This is basic C++ console application that processes a plain-text file (“text.txt”) to count repeating words.
+This is basic C++ console application that processes a plain-text file (“text.txt”) to count repeating words and check for url adresses.
 
-It reads the entire file into memory, then strips punctuation and ignores single-letter abbreviations. The application then builds a map of each word’s total occurrences and the distinct line numbers on which it appears. As a result it prints a formatted table listing every word that occurs more than once, alongside its count and the lines where it’s found.
+## Featuress
+- Creates a formatted table of every word occurring more than once, with its count and line numbers where it repeats. Outputs in `urls_out.txt`
+- Scans the raw file content for web addresses, including: `http://…`, `https://…`, `www`, domains with common TLDs (`cool.lt`, `site.de`, `mysite.ai`). Outputs in `words_out.txt`
 
-##  Example (text.txt)
+
+###  Example 
+`text.txt`
 ```
-1: To be, or not to be: that is the question.  
-2: Whether ’tis nobler in the mind to suffer  
-3: The slings and arrows of outrageous fortune,  
-4: Or to take Arms against a sea of troubles,  
-5: And by opposing end them: to die: to sleep;  
-6: No more; and by a sleep to say we end  
-7: The heart-ache and the thousand natural shocks  
-8: That Flesh is heir to; ’tis a consummation  
-9: Devoutly to be wish’d. To die, to sleep;  
-10: To sleep: perchance to dream: ay, there’s the rub;  
+1: Check out our sites: www.example.com, cool.lt, and cool.de.  
+2: To be, or not to be: that is the question.  
+3: Visit https://docs.example.org/getting-started for more info.  
+4: Whether ’tis nobler in the mind to suffer.  
+5: The heart-ache and the thousand natural shocks.  
+6: To die: to sleep; perchance to dream: ay, there’s the rub;    
 ```
-## Results
+### Results
+`words_out.txt`
 ```
 Word           Count   Lines
 ------------   -----   ----------------
-to             12      1, 2, 4, 5, 6, 8, 9, 10
-be             3       1, 9
-sleep          4       5, 6, 9, 10
-die            2       5, 9
-and            3       3, 6, 7
-of             3       3, 4, 8
-the            9       1, 2, 3, 7, 8, 9, 10
-that           3       1, 7, 8
-tis            2       2, 8
+to             5       2, 4, 6
+be             2       2
+tis            1       4
+the            4       2, 3, 5, 6
+and            2       1, 5
+```
+`urls_out.txt`
+```
+www.example.com
+cool.lt
+cool.de
+https://docs.example.org/getting-started
 ```
