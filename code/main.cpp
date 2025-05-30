@@ -3,14 +3,12 @@
 
 int main(){
 
-
     string file_content;
     try {
         file_content = readFileToString("text.txt");
     } catch (const char *msg) {
         cerr << msg;
     } istringstream iss(file_content);
-
 
     unordered_map<string, wordDetails> word_information;
     
