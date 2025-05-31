@@ -1,3 +1,7 @@
 *.exe
 words_out.txt
+<<<<<<< Updated upstream
 urls_out.txt
+=======
+urls_out.txt
+>>>>>>> Stashed changes
