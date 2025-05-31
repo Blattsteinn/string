@@ -60,7 +60,7 @@ vector<string> splitIntoWords(const string &text) {
 
 
 void print(const unordered_map<string, wordDetails>& word_information, string file_name){
-    ofstream file_out("list_of_words.txt");
+    ofstream file_out(file_name);
     if (!file_out) cerr << "[Error] Cannot open list_of_words.txt for writing\n";
 
 
