@@ -1,21 +1,28 @@
+# Word and URL Analyzer
 
-
-This is basic C++ console application that processes a plain-text file (“text.txt”) to count repeating words and check for url adresses.
+A simple C++ console application that processes a text file (`text.txt`) to:
+- Count and list repeating words (with counts and line numbers)
+- Extract URLs (full or abbreviated) and save them separately
 
 ## Featuress
 - Creates a formatted table of every word occurring more than once, with its count and line numbers where it repeats. Outputs in `urls_out.txt`
 - Scans the raw file content for web addresses, including: `http://…`, `https://…`, `www`, domains with common TLDs (`cool.lt`, `site.de`, `mysite.ai`). Outputs in `words_out.txt`
 
+## How to Use
+1. Ensure `text.txt` is placed in the same folder as the main.exe.
+2. Run the program and after it finishes, check the output files:
+-  words_out.txt – table of repeated words, counts, and line numbers
+-  urls_out.txt – list of extracted URLs
 
-###  Example 
+## Example 
 `text.txt`
 ```
-1: Check out our sites: www.example.com, cool.lt, and cool.de.  
-2: To be, or not to be: that is the question.  
-3: Visit https://docs.example.org/getting-started for more info.  
-4: Whether ’tis nobler in the mind to suffer.  
-5: The heart-ache and the thousand natural shocks.  
-6: To die: to sleep; perchance to dream: ay, there’s the rub;    
+Check out our sites: www.example.com, cool.lt, and cool.de.  
+To be, or not to be: that is the question.  
+Visit https://docs.example.org/getting-started for more info.  
+Whether ’tis nobler in the mind to suffer.  
+The heart-ache and the thousand natural shocks.  
+To die: to sleep; perchance to dream: ay, there’s the rub;    
 ```
 ### Results
 `words_out.txt`
