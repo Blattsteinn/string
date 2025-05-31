@@ -17,7 +17,7 @@ int main(){
     
     istringstream iss(file_content);
 
-    unordered_map<string, wordDetails> word_information;
+    map<string, wordDetails> word_information;
     
     string line;
     int line_count = 0;
