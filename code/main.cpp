@@ -30,5 +30,9 @@ int main(){
     print(word_information, "words_out.txt");
     extractUrls(file_content, "urls_out.txt");
 
+    cout << endl;
+    cout << "Press Enter to exit..."; string dummy;
+    getline(std::cin, dummy);
+
     return 0;
 }

@@ -1,40 +1,37 @@
 #pragma once
 
 #include <iostream>
-#include <fstream>
-#include <string>
-#include <sstream>
+using std::cout;
+using std::endl;
+using std::cerr;
+using std::cin;
+
+
 #include <vector>
+using std::vector;
 
 #include <unordered_map>
 using std::unordered_map;
 
-#include <iomanip>
-#include <regex>
+#include <iomanip> // For formatting
+#include <regex>   // 
 
-// -- <vector
-using std::vector;
 
 struct wordDetails {
     int count = 0;
     vector<int> lines;
 };
 
-
-// -- <iostream>
-using std::cout;
-using std::endl;
-using std::cerr;
-
-// -- <fstream>
+#include <fstream>
 using std::ifstream;
+using std::ofstream;
 
-// -- <sstream>
+
+#include <sstream>
 using std::istringstream;
 
-// -- <string>
+
+#include <string>
 using std::string;
 using std::ios;
-
-
 

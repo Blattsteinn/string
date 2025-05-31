@@ -4,9 +4,7 @@
 string readFileToString(const string &file_name) {
     // Open the file in binary mode with the pointer at the end.
     ifstream file(file_name, ios::binary | ios::ate);
-    if (!file) {
-        throw "[Klaida] Failas neegzistuoja / neatsidaro.\n";
-    }
+    if (!file) throw "[Klaida] Failas neegzistuoja / neatsidaro.\n";
     
     // Get file size and seek back to the beginning.
     std::streamsize size = file.tellg();
@@ -17,9 +15,8 @@ string readFileToString(const string &file_name) {
     content.resize(size);
     
     // Read the file content directly into the string.
-    if (!file.read(&content[0], size)) {
-        throw "[Klaida] Skaitymo klaida!\n";
-    }
+    if (!file.read(&content[0], size)) throw "[Klaida] Skaitymo klaida!\n";
+    
     
     return content;
 }
@@ -27,7 +24,7 @@ string readFileToString(const string &file_name) {
 vector<string> splitIntoWords(const string &text) {
     string cleaned = text;
 
-    // Remove  one_letter + dot
+    //------------------------------- Removes  one_letter + dot (X.)
     for (size_t i = 0; i + 1 < cleaned.size(); ++i) {
         char a = cleaned[i], b = cleaned[i+1];
         // if is english letter(a) && b == '.'
@@ -42,9 +39,10 @@ vector<string> splitIntoWords(const string &text) {
         }
     }
     
-    // Clean out all non-letters
+    // Clean out all non-letters and keeps apostrophes
     for (char &c : cleaned) {
-        if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')) {
+        if (c == '\'') continue;
+        else if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')) {
             c = static_cast<char>(std::tolower(static_cast<unsigned char>(c)));
         } else {
             c = ' ';
@@ -62,8 +60,8 @@ vector<string> splitIntoWords(const string &text) {
 
 
 void print(const unordered_map<string, wordDetails>& word_information, string file_name){
-    std::ofstream file_out("list_of_words.txt");
-    if (!file_out) std::cerr << "[Error] Cannot open list_of_words.txt for writing\n";
+    ofstream file_out("list_of_words.txt");
+    if (!file_out) cerr << "[Error] Cannot open list_of_words.txt for writing\n";
 
 
     else {
@@ -91,7 +89,6 @@ void print(const unordered_map<string, wordDetails>& word_information, string fi
 }
 
 void extractUrls(const std::string &text, string file_name) {
-    // A basic HTTP(S) URL regex
     static const std::regex url_regex(
         R"(\b(https?://)?(www\.)?[A-Za-z0-9-]+\.[A-Za-z]{2,}(/[^\s]*)?\b)",
         std::regex::icase
@@ -104,16 +101,17 @@ void extractUrls(const std::string &text, string file_name) {
         urls.push_back(it->str());
     }
 
-    if (!urls.empty()) {
-        std::ofstream url_out(file_name);
-        if (!url_out) {
-            std::cerr << "[Error] Cannot open urls.txt for writing\n";
-        } else {
-            for (auto &u : urls) {
-                url_out << u << "\n";
-            }
-            std::cout << "Found " << urls.size()
-                      << " URL(s) and saved to " << file_name << endl;
+    if (urls.empty()) return;
+
+    std::ofstream url_out(file_name);
+    if (!url_out) cerr << "[Error] Cannot open urls.txt for writing\n";
+    
+    else {
+         for (auto &u : urls) {
+            url_out << u << "\n";
         }
+        cout << "Found " << urls.size()
+        << " URL(s) and saved to " << file_name << endl;
     }
+    
 }
